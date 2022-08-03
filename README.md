@@ -11,7 +11,6 @@ This is a notebook of the course Machine Learning Specialization offered by Deep
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Creators](#creators)
-- [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
 
 
@@ -63,5 +62,5 @@ Editor preferences are available in the [editor config](https://reponame/blob/ma
 
 ## Copyright and license
 
-Code and documentation copyright 2021 the authors. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
+Code and documentation copyright 2022 the authors. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
 
