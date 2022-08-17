@@ -319,4 +319,4 @@ print("Cost for b = -4 : ", compute_cost_logistic(X_train, y_train, w_array2, b_
 
 # Cost for b = -3 :  0.3668667864055175
 
-# Cost for b = -4 :  0.5036808636748461
+# Cost for b g= -4 :  0.5036808636748461
