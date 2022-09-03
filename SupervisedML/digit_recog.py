@@ -81,6 +81,26 @@ def my_dense(a_in, W, b, g):
 
 # Exercise 3
 
+# Below, compose a new `my_dense_v` subroutine that performs the 
+# layer calculations for a matrix of examples. This will utilize `np.matmul()`. 
+
+def my_dense_v(A_in, W, b, g):
+    """
+    Computes dense layer
+    Args:
+      A_in (ndarray (m,n)) : Data, m examples, n features each
+      W    (ndarray (n,j)) : Weight matrix, n features per unit, j units
+      b    (ndarray (1,j)) : bias vector, j units  
+      g    activation function (e.g. sigmoid, relu..)
+    Returns
+      A_out (ndarray (m,j)) : m examples, j units
+    """
+
+    z = np.matmul(A_in, W) + b 
+    
+    A_out = g(z)
+    
+    return(A_out)
 
 # The following cell builds a three-layer neural network utilizing the 
 # `my_dense` subroutine above.
