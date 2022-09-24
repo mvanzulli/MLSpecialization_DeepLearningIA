@@ -1,0 +1,49 @@
+
+
+J_cv : Error using the cross-validation test set
+J_train : Error using the cross-validation test set
+
+If your learning algorithm has high bias or it has undefeated data, the key indicator will be if J train is high. 
+That corresponds to this leftmost portion of the curve, which is where J train as high. Usually you have J train 
+and J_cv will be close to each other. How do you diagnose if you have high variance? While the key indicator for 
+high-variance will be if J_cv is much greater than J train does double greater than sign in math refers to a much 
+greater than, so this is greater, and this means much greater. This rightmost portion of the plot is where J_cv is 
+much greater than J train. Usually J train will be pretty low, but the key indicator is whether J_cv is much greater
+than J train. That's what happens when we had fit a very high order polynomial to this small dataset. 
+ 
+ Even though we've just seen buyers in the areas, it turns out, in some cases, is possible to simultaneously have
+high bias and have high-variance. You won't see this happen that much for linear regression, but it turns out that
+if you're training a neural network, there are some applications where unfortunately you have high bias and high
+variance. One way to recognize that situation will be if J train is high, so you're not doing that well on the 
+training set, but even worse, the cross-validation error is again, even much larger than the training set.
+The notion of high bias and high variance, it doesn't really happen for linear models applied to one deep.
+But to give intuition about what it looks like, it would be as if for part of the input, you had a very complicated 
+model that overfit, so it overfits to part of the inputs. But then for some reason, for other parts of the input,
+it doesn't even fit the training data well, and so it underfits for part of the input. In this example, which looks
+artificial because it's a single feature input, we fit the training set really well and we overfit in part of the 
+input, and we don't even fit the training data well, and we underfit the part of the input. That's how in some
+applications you can unfortunate end up with both high bias and high variance. The indicator for that will
+be if the algorithm does poorly on the training set, and it even does much worse than on the training set. 
+          
+For most learning applications, you probably have primarily a high bias or high variance problem rather than 
+both at the same time. But it is possible sometimes they're both at the same time. I know that there's a lot of process,
+ there are a lot of concepts on the slides, but the key takeaways are, high bias means is not even doing well on the 
+ training set, and high variance means, it does much worse on the cross validation set and the training set. 
+ Whenever I'm training a machine learning algorithm, I will almost always try to figure out to what extent the
+  algorithm has a high bias or underfitting versus a high-variance when overfitting problem.
+
+
+To fix the alg we can use 
+
+Get more traning examples         Fix high variance 
+Try smaller sets of features      Fixes high variance 
+Try getting additional features   Fixes high baias 
+Try adding polynomial features    Fixes high baias 
+Try increasing lamda (reg param)  Fixes high baias 
+Try decreasing lamda (reg param)  Fixes high variance 
+
+
+Algorithm 
+Does it do well on the training set ? If No do 
+increase the number of hidden layers and unit  If yes 
+Does it do well on the cv set ? More data ang go back to the first step
