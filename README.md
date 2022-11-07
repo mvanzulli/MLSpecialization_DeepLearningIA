@@ -5,21 +5,11 @@ This is a notebook of the course Machine Learning Specialization offered by Deep
 
 ## Table of contents
 
-- [Quick start](#quick-start)
 - [Status](#status)
 - [What's included](#whats-included)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Creators](#creators)
 - [Copyright and license](#copyright-and-license)
-
-
-## Quick start
-
-Some text
-
-- Instruction 1
-- Instruction 2
-- Instruction 3
 
 ## Status
 
