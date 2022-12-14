@@ -49,16 +49,6 @@ Contains Solutions and Notes for the [Machine Learning Specialization](https://w
     - Neural Networks Implementation in Numpy
     - Neurons and Layers
     - Neural Networks for Binary Classification
-
-<br/>
-
-- [Week 1]()
-    - Neural networks model and intuition
-    - TensorFlow implementation
-    - Neural Networks Implementation in Numpy
-    - Neurons and Layers
-    - Neural Networks for Binary Classification
-
 <br/>
 
 
@@ -97,7 +87,6 @@ Have a bug or a feature request? Please first read the [issue guidelines](https:
 
 ## Creators
 
-**Creator 1**
 
 - <https://github.com/mvanzulli>
 
