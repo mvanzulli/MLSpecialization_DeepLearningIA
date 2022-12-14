@@ -2,9 +2,9 @@
 
 Contains Solutions and Notes for the [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction/?utm_medium=coursera&utm_source=home-page&utm_campaign=mlslaunch2022IN) by Andrew NG on Coursera 
 
-## Course 1 : [Supervised Machine Learning: Regression and Classification ](https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
+## Course 1 : [Supervised Machine Learning: Regression and Classification](https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction)
 
-- [Week 1](/C1%20-%20Supervised%20Machine%20Learning%3A%20Regression%20and%20Classification/week1/)
+- [Week 1]()
 
     - Regression
     - Supervised vs unsupervised learning
@@ -14,7 +14,7 @@ Contains Solutions and Notes for the [Machine Learning Specialization](https://w
 
 <br/>
 
-- [Week 2](/C1%20-%20Supervised%20Machine%20Learning%3A%20Regression%20and%20Classification/week2/) 
+- [Week 2]() 
 
     - Gradient descent.
     - Multiple linear regression
@@ -40,6 +40,54 @@ Contains Solutions and Notes for the [Machine Learning Specialization](https://w
 #### [Certificate Of Completion](https://www.coursera.org/account/accomplishments/certificate/6JRLLW8JRM3A)
 
 <br/>
+
+## Course 2 : [Advanced Learning Algorithms](https://www.coursera.org/learn/advanced-learning-algorithms?specialization=machine-learning-introduction)
+
+- [Week 1]()
+    - Neural networks model and intuition
+    - TensorFlow implementation
+    - Neural Networks Implementation in Numpy
+    - Neurons and Layers
+    - Neural Networks for Binary Classification
+
+<br/>
+
+- [Week 1]()
+    - Neural networks model and intuition
+    - TensorFlow implementation
+    - Neural Networks Implementation in Numpy
+    - Neurons and Layers
+    - Neural Networks for Binary Classification
+
+<br/>
+
+
+- [Week 2]()
+    - Neural Networks Training
+    - Activation Functions
+    - Multiclass Classification
+    - RElu
+    - Softmax
+    - Neural Networks For Handwritten Digit Recognition 
+
+<br/>
+
+- [Week 3]()
+    - Bias and Variance
+    - Machine Learning Development Process
+
+<br/>
+
+
+- [Week 4]()
+    - Decision Trees
+    - Decision Trees Learning
+    - Decision Trees Ensembles
+
+#### [Certificate of Completion](https://www.coursera.org/account/accomplishments/certificate/US3R9FWCGTFW)        
+
+<br/>
+
 
 ## Bugs and feature requests
 
