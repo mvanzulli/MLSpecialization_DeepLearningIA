@@ -144,9 +144,136 @@ model.compile(optimizer=opt,
               loss=cost_fn)
 
 tf.random.set_seed(1)
-'Backward and forwawrd pass'
+
+#Backward and forwawrd pass
 model.fit([user_train[:, u_s:], item_train[:, i_s:]], y_train, epochs=30)
 
-'Test the outputoff'
+#Test the output
 
 model.evaluate([user_test[:, u_s:], item_test[:, i_s:]], y_test)
+
+## 5 - Predictions
+# Below, you'll use your model to make predictions in a number of circumstances. 
+
+### 5.1 - Predictions for a new user
+# First, we'll create a new user and have the model suggest movies for that user.
+#  After you have tried this on the example user content, feel free to change the user content to match your own preferences and see what the model suggests. 
+# Note that ratings are between 0.5 and 5.0, inclusive, in half-step increments.
+
+
+new_user_id = 5000
+new_rating_ave = 0.0
+new_action = 0.0
+new_adventure = 5.0
+new_animation = 0.0
+new_childrens = 0.0
+new_comedy = 0.0
+new_crime = 0.0
+new_documentary = 0.0
+new_drama = 0.0
+new_fantasy = 5.0
+new_horror = 0.0
+new_mystery = 4.0
+new_romance = 0.0
+new_scifi = 4.0
+new_thriller = 4.0
+new_rating_count = 3
+
+user_vec = np.array([[new_user_id, new_rating_count, new_rating_ave,
+                      new_action, new_adventure, new_animation, new_childrens,
+                      new_comedy, new_crime, new_documentary,
+                      new_drama, new_fantasy, new_horror, new_mystery,
+                      new_romance, new_scifi, new_thriller]])
+
+
+# The new user enjoys movies from the adventure, fantasy genres. Let's find the top-rated movies for the new user.  
+# Below, we'll use a set of movie/item vectors, `item_vecs` that have a vector for each movie in the training/test set. 
+# This is matched with the new user vector above and the scaled vectors are used to predict ratings for all the movies.
+
+
+# generate and replicate the user vector to match the number movies in the data set.
+user_vecs = gen_user_vecs(user_vec, len(item_vecs))
+
+# scale our user and item vectors
+suser_vecs = scalerUser.transform(user_vecs)
+sitem_vecs = scalerItem.transform(item_vecs)
+
+# make a prediction
+y_p = model.predict([suser_vecs[:, u_s:], sitem_vecs[:, i_s:]])
+
+# unscale y prediction 
+y_pu = scalerTarget.inverse_transform(y_p)
+
+# sort the results, highest prediction first
+sorted_index = np.argsort(-y_pu,axis=0).reshape(-1).tolist()  #negate to get largest rating first
+sorted_ypu   = y_pu[sorted_index]
+sorted_items = item_vecs[sorted_index]  #using unscaled vectors for display
+
+print_pred_movies(sorted_ypu, sorted_items, movie_dict, maxcount = 10)
+
+
+### 5.3 - Finding Similar Items
+# The neural network above produces two feature vectors, a user feature vector $v_u$, and a movie feature vector, $v_m$. 
+# These are 32 entry vectors whose values are difficult to interpret. However, similar items will have similar vectors. 
+# This information can be used to make recommendations. 
+# For example, if a user has rated "Toy Story 3" highly, one could recommend similar movies by selecting movies with similar
+#  movie feature vectors.
+
+# A similarity measure is the squared distance between the two vectors $ \mathbf{v_m^{(k)}}$ and $\mathbf{v_m^{(i)}}$ :
+# $$\left\Vert \mathbf{v_m^{(k)}} - \mathbf{v_m^{(i)}}  \right\Vert^2 = \sum_{l=1}^{n}(v_{m_l}^{(k)} - v_{m_l}^{(i)})^2\tag{1}$$
+
+
+def sq_dist(a,b):
+    """
+    Returns the squared distance between two vectors
+    Args:
+      a (ndarray (n,)): vector with n features
+      b (ndarray (n,)): vector with n features
+    Returns:
+      d (float) : distance
+    """
+
+    return np.sum(np.add(a,-b)**2)
+
+
+# A matrix of distances between movies can be computed once when the model is trained and then reused for new recommendations without retraining. 
+# The first step, once a model is trained, is to obtain the movie feature vector, $v_m$, for each of the movies.
+#  To do this, we will use the trained `item_NN` and build a small model to allow us to run the movie vectors through it to generate $v_m$.
+
+input_item_m = tf.keras.layers.Input(shape=(num_item_features))    # input layer
+vm_m = item_NN(input_item_m)                                       # use the trained item_NN
+vm_m = tf.linalg.l2_normalize(vm_m, axis=1)                        # incorporate normalization as was done in the original model
+model_m = tf.keras.Model(input_item_m, vm_m)                                
+model_m.summary()
+
+
+# Once you have a movie model, you can create a set of movie feature vectors by using the model to predict using a set of item/movie vectors as input. 
+# `item_vecs` is a set of all of the movie vectors. 
+# It must be scaled to use with the trained model. The result of the prediction is a 32 entry feature vector for each movie.
+
+
+scaled_item_vecs = scalerItem.transform(item_vecs)
+vms = model_m.predict(scaled_item_vecs[:,i_s:])
+print(f"size of all predicted movie feature vectors: {vms.shape}")
+
+
+count = 50  # number of movies to display
+dim = len(vms)
+dist = np.zeros((dim,dim))
+
+for i in range(dim):
+    for j in range(dim):
+        dist[i,j] = sq_dist(vms[i, :], vms[j, :])
+        
+m_dist = ma.masked_array(dist, mask=np.identity(dist.shape[0]))  # mask the diagonal
+
+disp = [["movie1", "genres", "movie2", "genres"]]
+for i in range(count):
+    min_idx = np.argmin(m_dist[i])
+    movie1_id = int(item_vecs[i,0])
+    movie2_id = int(item_vecs[min_idx,0])
+    disp.append( [movie_dict[movie1_id]['title'], movie_dict[movie1_id]['genres'],
+                  movie_dict[movie2_id]['title'], movie_dict[movie1_id]['genres']]
+               )
+table = tabulate.tabulate(disp, tablefmt='html', headers="firstrow")
+table
